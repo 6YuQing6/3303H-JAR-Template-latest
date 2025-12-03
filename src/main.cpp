@@ -277,7 +277,7 @@ void profiling() {
       }
     }
     RPMEntryData leftMotor1Entry;
-    leftMotor1Entry.rpm = leftMotor1.velocity(rpm); // weird error on all getVelocity() calls
+    leftMotor1Entry.rpm = leftMotor1.velocity(rpm); 
     leftMotor1Entry.timestamp = Brain.Timer.value();
     leftMotor1EntryData.push_back(leftMotor1Entry);
     
