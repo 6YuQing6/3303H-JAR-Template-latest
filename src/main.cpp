@@ -42,12 +42,12 @@ competition Competition;
 
 
 
-motor leftMotor1 = motor(PORT11, ratio6_1, false);
-motor leftMotor2 = motor(PORT12, ratio6_1, false);
-motor leftMotor3 = motor(PORT13, ratio6_1, false);
-motor rightMotor1 = motor(PORT20, ratio6_1, true);
-motor rightMotor2 = motor(PORT19, ratio6_1, true);
-motor rightMotor3 = motor(PORT18, ratio6_1, true);
+motor leftMotor1 = motor(PORT11, ratio6_1, true);
+motor leftMotor2 = motor(PORT12, ratio6_1, true);
+motor leftMotor3 = motor(PORT13, ratio6_1, true);
+motor rightMotor1 = motor(PORT20, ratio6_1, false);
+motor rightMotor2 = motor(PORT19, ratio6_1, false);
+motor rightMotor3 = motor(PORT18, ratio6_1, false);
 motor intakeMotor = motor(PORT9, ratio6_1, false);
 motor outtakeMotor = motor(PORT10, ratio6_1, true);
 controller Controller = controller(primary);
@@ -82,7 +82,7 @@ motor_group(leftMotor1, leftMotor2, leftMotor3),
 motor_group(rightMotor1, rightMotor2, rightMotor3),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT5,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -339,30 +339,33 @@ void usercontrol(void) {
     //or chassis.control_holonomic(); for holo drive.
     chassis.control_arcade();
     if (Controller.ButtonL1.pressing()) {
-      intakeMotor.spin(forward);
+      intakeMotor.spin(reverse, 100, percent);
     } else if (Controller.ButtonL2.pressing()) {
-      intakeMotor.spin(reverse);
+      intakeMotor.spin(forward, 100, percent);
     } else {
-      intakeMotor.stop();
+      intakeMotor.stop(coast);
     }
 
     if (Controller.ButtonR1.pressing()) {
-      outtakeMotor.spin(forward);
+      outtakeMotor.spin(reverse, 100, percent);
     } else if (Controller.ButtonR2.pressing()) {
-      outtakeMotor.spin(reverse);
+      outtakeMotor.spin(forward, 100, percent);
     } else {
-      outtakeMotor.stop();
+      outtakeMotor.stop(coast);
     } 
 
     if (Controller.ButtonA.pressing()) {
-      matchloader.set(!matchloader_status);
       matchloader_status = !matchloader_status;
+      waitUntil(!Controller.ButtonA.pressing());
     } 
+    matchloader.set(!matchloader_status);
+    
 
     if (Controller.ButtonB.pressing()) {
-      outputblocker.set(!outputblocker_status);
       outputblocker_status = !outputblocker_status;
+      waitUntil(!Controller.ButtonB.pressing());
     }
+    outputblocker.set(!outputblocker_status);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
