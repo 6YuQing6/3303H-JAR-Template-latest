@@ -37,20 +37,18 @@ competition Competition;
 
 
 
-
-
-
-
-
 motor leftMotor1 = motor(PORT11, ratio6_1, true);
 motor leftMotor2 = motor(PORT12, ratio6_1, true);
 motor leftMotor3 = motor(PORT13, ratio6_1, true);
 motor rightMotor1 = motor(PORT20, ratio6_1, false);
 motor rightMotor2 = motor(PORT19, ratio6_1, false);
 motor rightMotor3 = motor(PORT18, ratio6_1, false);
-motor intakeMotor = motor(PORT9, ratio6_1, false);
-motor outtakeMotor = motor(PORT10, ratio6_1, true);
+motor intakeMotor = motor(PORT9, ratio6_1, false); // forward for intake, reverse for outake
+motor outtakeMotor = motor(PORT10, ratio6_1, true); // forward for intake, reverse for outake
 controller Controller = controller(primary);
+
+motor_group LeftDriveSmart = motor_group(leftMotor1, leftMotor2, leftMotor3);
+motor_group RightDriveSmart = motor_group(rightMotor1, rightMotor2, rightMotor3);
 
 bool matchloader_status = false;
 bool outputblocker_status = false;
@@ -195,6 +193,65 @@ void pre_auton() {
     wait(10, msec);
   }
 }
+
+
+
+ void loader() {
+  chassis.set_heading(0);
+  // start directly in front of loader for testing
+  LeftDriveSmart.setVelocity(100, percent);
+  RightDriveSmart.setVelocity(100, percent);
+  // intakes from loader
+  matchloader.set(true);
+  intakeMotor.spin(forward, 100, percent);
+  chassis.set_drive_exit_conditions(1, 300, 500);
+  chassis.set_drive_constants(10, 1.5, 0, 10, 0);
+  chassis.drive_distance(17);
+  wait(0.6, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 5000);
+  chassis.set_drive_constants(6, 1.5, 0, 10, 0);
+  chassis.drive_distance(-10);
+  chassis.turn_to_angle(-190);
+  wait(0.4, seconds);
+  matchloader.set(false);
+  chassis.drive_distance(16);
+
+  // loads long goal
+  intakeMotor.spin(forward, 90, percent);
+  outtakeMotor.spin(forward, 100, percent);
+}
+
+
+void rightMiddle() {
+  // starts from park zone corner, the bot's left bottom corner touches the park zone's right top corner
+  chassis.set_drive_constants(9, 1.5, 0, 10, 0);
+  // goes to and intakes 3 balls
+  intakeMotor.spin(forward, 60, percent);
+  LeftDriveSmart.setVelocity(20, percent);
+  RightDriveSmart.setVelocity(20, percent);
+  chassis.drive_distance(13);
+  chassis.turn_to_angle(30);
+  chassis.drive_distance(13.5, 30, 2, 2);
+  wait(0.5, seconds);
+  // go to middle goal bottom
+  LeftDriveSmart.setVelocity(35, percent);
+  RightDriveSmart.setVelocity(35, percent);
+  chassis.turn_to_angle(-45);
+  chassis.drive_distance(9);
+  // loads bottom middle goal
+  intakeMotor.spin(reverse, 60, percent);
+  wait(2.1, seconds);
+  LeftDriveSmart.setVelocity(90, percent);
+  RightDriveSmart.setVelocity(90, percent);
+  chassis.drive_distance(2.5);
+
+  // goes to right loader and turns around to intake from loader
+  chassis.drive_distance(-46.5);
+  chassis.turn_to_angle(180);
+  
+  loader();
+}
+
 
 /**
  * Auton function, which runs the selected auton. Case 0 is the default,
