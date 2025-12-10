@@ -1,18 +1,18 @@
 {
-  "project": {
-    "name": "3303H",
-    "slot": 1,
-    "description": "Empty V5 C++ Project",
-    "platform": "V5",
-    "creationDate": "Sat, 06 Dec 2025 04:18:45 GMT",
-    "language": "cpp",
-    "sdkVersion": "V5_20240802_15_00_00",
-    "cpp": {
-      "includePath": []
-    }
-  },
-  "extension": {
-    "version": "0.7.2025041600",
-    "json": 1
-  }
+	"project": {
+		"name": "3303H",
+		"slot": 2,
+		"description": "Empty V5 C++ Project",
+		"platform": "V5",
+		"creationDate": "Sat, 06 Dec 2025 04:18:45 GMT",
+		"language": "cpp",
+		"sdkVersion": "V5_20240802_15_00_00",
+		"cpp": {
+			"includePath": []
+		}
+	},
+	"extension": {
+		"version": "0.7.2025041600",
+		"json": 1
+	}
 }

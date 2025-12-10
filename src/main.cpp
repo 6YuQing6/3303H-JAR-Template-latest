@@ -224,12 +224,13 @@ void pre_auton() {
 
 void rightMiddle() {
   outputblocker.set(true);
+  matchloader.set(false);
   //move forward 28.7 inche
   // starts from park zone corner, the bot's left bottom corner touches the park zone's right top corner
   chassis.set_drive_constants(9, 1.5, 0, 10, 0);
   // goes to and intakes 3 balls
-  LeftDriveSmart.setVelocity(80,percent);
-  RightDriveSmart.setVelocity(80,percent);
+  LeftDriveSmart.setVelocity(100,percent);
+  RightDriveSmart.setVelocity(100,percent);
   chassis.drive_distance(13.842);
   chassis.turn_to_angle(32.1);
   //drives to center to get the balls
@@ -237,12 +238,11 @@ void rightMiddle() {
   LeftDriveSmart.setVelocity(30, percent);
   RightDriveSmart.setVelocity(30, percent);
   chassis.drive_distance(10.72);
-  wait(0.1, seconds);
   intakeMotor.stop();
   //stops intake
   chassis.turn_to_angle(32.1+106.5);
-  LeftDriveSmart.setVelocity(90, percent);
-  RightDriveSmart.setVelocity(90, percent);
+  LeftDriveSmart.setVelocity(100, percent);
+  RightDriveSmart.setVelocity(100, percent);
   chassis.drive_distance(38.3);
   chassis.turn_to_angle(180);
   //goes to loader
@@ -250,21 +250,25 @@ void rightMiddle() {
   chassis.drive_distance(-5);
   //drops matchloader and collects balls
   matchloader.set(true);
-  wait(0.1, seconds);
-  LeftDriveSmart.setVelocity(100, percent);
-  RightDriveSmart.setVelocity(100, percent);
-  chassis.drive_distance(10.318);
   wait(0.5, seconds);
+  LeftDriveSmart.setVelocity(67, percent);
+  RightDriveSmart.setVelocity(67, percent);
+  chassis.set_drive_exit_conditions(1.5, 300, 500);
+  chassis.drive_distance(10.318);
+  wait(1, seconds);
+  chassis.set_drive_exit_conditions(1.5, 300, 5000);
   chassis.drive_distance(-5.318);
   matchloader.set(false);
   //drives back and pulls matchloader up
   intakeMotor.stop();
   //stops intake
-  wait(0.1, seconds);
+  LeftDriveSmart.setVelocity(100, percent);
+  RightDriveSmart.setVelocity(100, percent);
+  chassis.set_drive_exit_conditions(1.5, 300, 500);
   chassis.drive_distance(-23);
-  wait(0.1, seconds);
   intakeMotor.spin(forward, 100, percent);
   outtakeMotor.spin(forward, 100, percent);
+  chassis.set_drive_exit_conditions(1.5, 300, 5000);
   // goes and scores in long goal
 
   // // go to middle goal bottom
@@ -312,11 +316,12 @@ void spicyCheeseWithJalapeñoBits() {
   chassis.drive_distance(18);
   wait(1, sec);
   chassis.drive_distance(-10);
-  wait(0.5, sec);
+  wait(0.2, sec);
   chassis.turn_to_angle(-90);
   chassis.drive_distance(12);
-
-
+  intakeMotor.spin(forward, 100, percent);
+  outtakeMotor.spin(forward, 100, percent);
+  matchloader.set(true);
 }
 // if you need the accented n for future purposes: ñ
 /**
