@@ -13,7 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: schineaj23/vex-build@v1.0
     - name: configure
       run: ./configure
     - name: make
