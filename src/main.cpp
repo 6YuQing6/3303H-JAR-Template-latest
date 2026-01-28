@@ -224,8 +224,13 @@ void pre_auton() {
 }
 
 
+<<<<<<< HEAD
 void leftpush() {     
   chassis.set_drive_exit_conditions(1.5, 200, 5000);
+=======
+void leftpush() {
+  chassis.set_drive_exit_conditions(1.5, 100, 5000);
+>>>>>>> 8790a24a3456da577e976fd2e968fecf7dfeb7d9
   outputblocker.set(true);
   matchloader.set(false);
   //move forward 28.7 inches
@@ -238,19 +243,20 @@ void leftpush() {
   chassis.drive_distance(13.842);
   chassis.turn_to_angle(-32.1);
   //drives to center to get the balls
-  LeftDriveSmart.setVelocity(25, percent);
-  RightDriveSmart.setVelocity(25, percent);
+  LeftDriveSmart.setVelocity(40, percent);
+  RightDriveSmart.setVelocity(40, percent);
   chassis.drive_distance(4.72);
   matchloader.set(true);
   chassis.drive_distance(8.72);
   chassis.drive_distance(-2);
   intakeMotor.stop();
   matchloader.set(false);
+  chassis.set_drive_exit_conditions(1.5, 250, 5000);
   //stops intake
   chassis.turn_to_angle(-32.1-106.5);
   LeftDriveSmart.setVelocity(100, percent);
   RightDriveSmart.setVelocity(100, percent);
-  chassis.drive_distance(41.8);
+  chassis.drive_distance(41.7);
   chassis.turn_to_angle(-180);
   //goes to loader
   intakeMotor.spin(forward, 100, percent);
@@ -270,16 +276,19 @@ void leftpush() {
   //stops intake
   LeftDriveSmart.setVelocity(100, percent);
   RightDriveSmart.setVelocity(100, percent);
-  chassis.set_drive_exit_conditions(1.5, 200, 500);
+  chassis.set_drive_exit_conditions(1.5, 150, 500);
   chassis.drive_distance(-22);
   intakeMotor.spin(forward, 100, percent);
   outtakeMotor.spin(forward, 100, percent);
-  chassis.set_drive_exit_conditions(1.5, 150, 5000);
-  wait(1.5, seconds);
+  chassis.set_drive_exit_conditions(1.5, 100, 5000);
+  wait(1.8, seconds);
   chassis.drive_distance(10);
+  chassis.set_drive_exit_conditions(1.5, 0, 5000);
   chassis.turn_to_angle(135);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(180);
+  LeftDriveSmart.setVelocity(67, percent);
+  RightDriveSmart.setVelocity(67, percent);
   chassis.drive_distance(-20);
   chassis.set_drive_exit_conditions(1.5, 300, 5000);
 }

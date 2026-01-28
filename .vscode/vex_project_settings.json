@@ -1,10 +1,14 @@
 {
 	"project": {
 		"name": "3303H",
+<<<<<<< HEAD
 		"slot": 3,
+=======
+		"slot": 1,
+>>>>>>> 8790a24a3456da577e976fd2e968fecf7dfeb7d9
 		"description": "Empty V5 C++ Project",
 		"platform": "V5",
-		"creationDate": "Sat, 06 Dec 2025 04:18:45 GMT",
+		"creationDate": "Mon, 19 Jan 2026 01:43:13 GMT",
 		"language": "cpp",
 		"sdkVersion": "V5_20240802_15_00_00",
 		"cpp": {
@@ -12,7 +16,7 @@
 		}
 	},
 	"extension": {
-		"version": "0.7.2025041600",
+		"version": "0.8.2026011200",
 		"json": 1
 	}
 }
